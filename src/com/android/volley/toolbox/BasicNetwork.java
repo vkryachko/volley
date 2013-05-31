@@ -199,6 +199,9 @@ public class BasicNetwork implements Network {
 
     /** Reads the contents of HttpEntity into a byte[]. */
     private byte[] entityToBytes(HttpEntity entity) throws IOException, ServerError {
+        if (entity == null) {
+            return mPool.getBuf(0);
+        }
         PoolingByteArrayOutputStream bytes =
                 new PoolingByteArrayOutputStream(mPool, (int) entity.getContentLength());
         byte[] buffer = null;
